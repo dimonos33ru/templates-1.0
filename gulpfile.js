@@ -14,6 +14,10 @@ global.$ = {
 		rename:       require('gulp-rename'),
 		uglify:       require('gulp-uglify'),
 		concat: 			require('gulp-concat'),
+		imagemin: 		require('gulp-imagemin'),
+		cache: 			 	require('gulp-cache'),
+		imgJpegRec: 	require('imagemin-jpeg-recompress'),
+		pngquant: 		require('imagemin-pngquant'),
 
 		// путь к таскам
 		path: {
@@ -29,13 +33,13 @@ $.path.tasks.forEach(function (taskPath) {
 
 // задача во время разработки
 $.gulp.task('default', $.gulp.series(
-	$.gulp.parallel('pug:dev', 'scss:dev','js:dev'),
+	'cleanBuild',
+	$.gulp.parallel('pug:dev', 'scss:dev','js:dev', 'font','img:dev'),
 	$.gulp.parallel('watch', 'server:dev')
 ));
 
 // задача для финальной версии
 $.gulp.task('build', $.gulp.series(
 	'cleanBuild',
-	$.gulp.parallel('pug:build', 'scss:build','js:build'),
-	$.gulp.parallel('server:build')
+	$.gulp.parallel('pug:build', 'scss:build','js:build','font','img:build')
 ));

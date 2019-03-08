@@ -1,6 +1,6 @@
 module.exports = function () {
 	$.gulp.task('pug:build', function () {
-		return $.gulp.src('src/pug/pages/*.pug')
+		return $.gulp.src('src/pug/*.pug')
 			.pipe($.pug({
 				pretty: true
 			}))
@@ -9,11 +9,10 @@ module.exports = function () {
 				title: "Error PUG"
 			}))
 			.pipe($.gulp.dest('build'))
-			.on('end', $.browserSync.reload);
 	});
 
 	$.gulp.task('pug:dev', function () {
-		return $.gulp.src('src/pug/pages/*.pug')
+		return $.gulp.src('src/pug/*.pug')
 			.pipe($.pug({
 				pretty: true
 			}))
@@ -21,7 +20,7 @@ module.exports = function () {
 				message: "Error: <%= error.message %>",
 				title: "Error PUG"
 			}))
-			.pipe($.gulp.dest('src/static'))
+			.pipe($.gulp.dest('build'))
 			.on('end', $.browserSync.reload);
 	});
 }
